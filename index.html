@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joey Borg</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦄</text></svg>"
+    />
+    <style>
+      body {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        image-rendering: pixelated;
+      }
+
+      * {
+        color: black;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        text-align: center;
+        -webkit-transition: background-color 100ms linear;
+        -ms-transition: background-color 100ms linear;
+        transition: background-color 100ms linear;
+        background-image: url("img/bg.gif");
+        background-size: cover;
+        overflow: hidden;
+      }
+
+      main > * {
+        position: relative;
+        cursor: pointer;
+      }
+
+      #intro {
+        display: grid;
+        place-items: center;
+        position: absolute;
+        top: calc(50vh - 150px);
+        left: calc(50vw - 150px);
+        width: 300px;
+        height: 300px;
+        background-color: lime;
+        z-index: 99;
+        border: red 15px double;
+      }
+
+      #intro h1 {
+        font-size: 100px;
+        line-height: 0;
+      }
+
+      #intro button {
+        margin-top: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="intro">
+      <div>
+        <h1>🍪</h1>
+        <div>this site uses cookies!</div>
+        <button id="go">that's ok</button>
+      </div>
+    </div>
+    <main id="main">
+      <h1 say="Joey Borg">Joey Borg</h1>
+      <img say="very loud jack hammer noises" src="img/brbrbrrrr.gif" />
+      <p say="under construction, please wait, beep boop, loading, coming soon">
+        <i>Coming soon...</i>
+      </p>
+      <a say="hello and thank you for your email!" href="mailto:hi@joeyborg.com"
+        >hi@joeyborg.com</a
+      >
+    </main>
+
+    <script>
+      document.getElementById("go").onclick = (e) => {
+        document.getElementById("intro").remove();
+
+        say("Welcome to my website, please enjoy your stay. Here is a cookie!");
+
+        document.cookie = "cookie=🍪";
+      };
+
+      document.getElementById("main").childNodes.forEach((el) => {
+        setInterval(() => {
+          if (el && el.style) {
+            const x = Math.random() * 10 + "px";
+            const y = Math.random() * 10 + "px";
+
+            el.style.transform = `translate(${x}, ${y})`;
+
+            el.innerText = el.innerText
+              .split("")
+              .map((v) =>
+                Math.round(Math.random()) ? v.toUpperCase() : v.toLowerCase()
+              )
+              .join("");
+          }
+        }, 300);
+
+        el.onclick = (e) => {
+          say(el.getAttribute("say"));
+
+          randomBg();
+        };
+      });
+
+      function say(text) {
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+      }
+
+      function randomBg() {
+        const colors = [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "pink",
+          "teal",
+          "fuchsia",
+        ];
+
+        document.body.style.backgroundColor =
+          colors[parseInt(Math.random() * colors.length - 1)];
+      }
+
+      randomBg();
+    </script>
+  </body>
+</html>
